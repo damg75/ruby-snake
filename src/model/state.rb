@@ -2,6 +2,13 @@
 
 module Model
 
+    module Directions 
+        UP = :up
+        RIGHT = :right
+        DOWN = :down
+        LEFT = :left
+    end
+
     class Coord < Struct.new(:row, :col)
     end
 
@@ -14,7 +21,7 @@ module Model
     class Grid < Struct.new(:rows, :cols)
     end
 
-    class State < Struct.new(:snake, :food, :grid)
+    class State < Struct.new(:snake, :food, :grid, :next_direction, :game_finished)
     end
 
     def self.initial_state
@@ -25,6 +32,8 @@ module Model
             ]),
             Model::Food.new(rand(5..8), rand(5..12)),
             Model::Grid.new(8, 12),
+            Direction::DOWN,
+            false
         )
     end
 
