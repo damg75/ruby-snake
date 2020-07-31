@@ -30,7 +30,7 @@ module Model
                 Model::Coord.new(1,1),
                 Model::Coord.new(0,1)
             ]),
-            Model::Food.new(rand(5..7), rand(5..11)),
+            Model::Food.new(4, 4),
             Model::Grid.new(8, 12),
             Directions::DOWN,
             false

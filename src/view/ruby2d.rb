@@ -27,6 +27,8 @@ module View
         end
 
         def render(state)
+            extend Ruby2D::DSL
+            close if state.game_finished
             render_snake(state)
             render_food(state)
         end
@@ -34,7 +36,7 @@ module View
         private
 
         def render_food(state)
-            # @food.remove if @food
+            @food.remove if @food
             extend Ruby2D::DSL
             food = state.food
             @food = Square.new(
@@ -58,7 +60,7 @@ module View
         end
 
         def handle_key_event(event)
-            puts event.key
+            # puts event.key
             case event.key
                 when "up"
                     @app.send_action(:change_direction, Model::Directions::UP)
