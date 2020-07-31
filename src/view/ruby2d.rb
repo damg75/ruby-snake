@@ -1,13 +1,15 @@
-#Renders the voew of our app
+#Renders the view of our app
 
 require "ruby2d"
+require_relative "../model/state"
 
 module View
 
     class Ruby2dView
 
-        def initialize
+        def initialize(app)
             @pixel_size = 50
+            @app = app
         end
 
         def start(state)
@@ -17,6 +19,10 @@ module View
                 width: @pixel_size * state.grid.cols, 
                 height: @pixel_size * state.grid.rows
             )
+            on :key_down do |event|
+                handle_key_event(event)
+                # puts event.key
+            end
             show
         end
 
@@ -48,6 +54,30 @@ module View
                     size: @pixel_size,
                     color: 'green',
                 )
+            end
+        end
+
+        def handle_key_event(event)
+            puts event.key
+            case event.key
+                when "up"
+                    @app.send_action(:change_direction, Model::Directions::UP)
+                when "down"
+                    @app.send_action(:change_direction, Model::Directions::DOWN)
+                when "right"
+                    @app.send_action(:change_direction, Model::Directions::RIGHT)
+                when "left"
+                    @app.send_action(:change_direction, Model::Directions::LEFT)
+
+
+                when "w"
+                    @app.send_action(:change_direction, Model::Directions::UP)
+                when "s"
+                    @app.send_action(:change_direction, Model::Directions::DOWN)
+                when "d"
+                    @app.send_action(:change_direction, Model::Directions::RIGHT)
+                when "a"
+                    @app.send_action(:change_direction, Model::Directions::LEFT)
             end
         end
 
